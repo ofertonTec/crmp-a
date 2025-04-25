@@ -1,0 +1,7 @@
+import { defineStore } from "pinia";
+export const useUsuarioStore = defineStore("usuario", {
+  state: () => ({
+    nombre: "",
+    password: "",
+  }),
+});
