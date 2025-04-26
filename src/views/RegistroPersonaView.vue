@@ -5,18 +5,17 @@ import Header from "@/components/Header.vue";
 </script>
 
 <template>
-  <Header />
-  <main class="mx-auto md:w-3/12 mt-10 p-5">
-    <h1 class="font-extrabold uppercase text-gray-500">Nuevo Registro</h1>
-    
-    <div class="mt-3">
-      <FormKit type="form" submit-label="Registrar Persona">
-        <FormKit 
-          type="text"
-          label="Nombre"
-          
+  
+  <Header/>
+  <main class="cointainer mx-auto md:w-4/5">
+    <FormKit 
+    type="form"  
+    >
+      <FormKit
+        type="text"
+        submit-label="Registrar Persona"
+      
         />
-      </FormKit>
-    </div>
+    </FormKit>
   </main>
 </template>

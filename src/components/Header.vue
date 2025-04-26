@@ -1,111 +1,80 @@
-<template>
-  <nav class="bg-blue-600 text-white p-4 relative z-50">
-    <div class="flex justify-between items-center">
-      <div class="text-xl font-bold">Procuradores & Asociados</div>
-
-      <!-- Botón hamburguesa -->
-      <button @click="menuAbierto = !menuAbierto" class="md:hidden">
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
-
-      <!-- Menú desktop -->
-      <ul class="hidden md:flex gap-6 items-center">
-        <li><a href="/" class="hover:underline">Inicio</a></li>
-        <li>
-          <RouterLink :to="{name:'nueva-persona'}" class="hover:underline"> Agregar Persona</RouterLink>
-        </li>
-
-        <!-- Dropdown -->
-        <li class="relative group">
-          <button class="">
-            {{ userStore.nombre }}
-          </button>
-          <ul
-            class="absolute right-0 bg-white text-black rounded shadow-md mt-2 hidden group-hover:block min-w-[160px]"
-          >
-            <li>
-              <a href="/perfil" class="block px-4 py-2 hover:bg-gray-100"
-                >Perfil</a
-              >
-            </li>
-            <li>
-              <a href="/configuracion" class="block px-4 py-2 hover:bg-gray-100"
-                >Configuración</a
-              >
-            </li>
-            <li>
-              <RouterLink
-                :to="{ name: 'home' }"
-               class="block px-4 py-2 hover:bg-gray-100"
-              >
-                Cerrar sesión
-              </RouterLink>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Menú mobile -->
-    <ul
-      v-if="menuAbierto"
-      class="md:hidden flex flex-col gap-4 mt-4 bg-blue-700 p-4 rounded absolute left-0 w-full"
-    >
-      <li><a href="/" class="hover:underline">Inicio</a></li>
-      <li> <RouterLink :to="{name:'nueva-persona'}" class="block px-4 py-2 hover:bg-gray-700 md:hover:bg-transparent"> Agregar Persona</RouterLink></li>
-
-      <!-- Dropdown simulado en móvil -->
-      <li class="relative">
-        <button
-          @click="dropdownAbierto = !dropdownAbierto"
-          class="hover:underline w-full text-left"
-        >
-          {{ userStore.nombre }}
-        </button>
-        <ul
-          v-if="dropdownAbierto"
-          class="bg-white text-black mt-2 rounded shadow-md w-full"
-        >
-          <li>
-            <a href="/perfil" class="block px-4 py-2 hover:bg-gray-100"
-              >Perfil</a
-            >
-          </li>
-          <li>
-            <a href="/configuracion" class="block px-4 py-2 hover:bg-gray-100"
-              >Configuración</a
-            >
-          </li>
-          <li>
-            <RouterLink
-              :to="{ name: 'home' }"
-              class="block px-4 py-2 hover:bg-gary-700 md:hover:bg-transparent"
-            >
-              Cerrar sesión
-            </RouterLink>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-</template>
-
 <script setup>
-import { ref } from "vue";
-import { useUsuarioStore } from "@/stores/usuario";
+import { useUsuarioStore } from "@/store/usuario";
+import { useRouter } from "vue-router";
 
-const menuAbierto = ref(false);
-const dropdownAbierto = ref(false);
-const userStore = useUsuarioStore();
+const auth = useUsuarioStore();
+const router = useRouter();
+
+function logout() {
+  auth.logout();
+  router.push("/login");
+}
 </script>
+<template>
+  <header class="header">
+    <div class=" menu flex  flex-wrap justify-between items-center">
+     
+        <img
+          class="w-30"
+          src="http://procuradoresasoc.com/wp-content/uploads/2020/11/logo-3.png"
+          alt="Logo"
+        />
+        <h1 class="title-header">PANEL P&A - SISTEMA SEGURIDAD</h1>
+      
+
+      <button
+        @click="logout"
+        class="btn-cerrar-sesion bg-pink-500 hover:bg-pink-600 px-4 py-2 rounded font-bold"
+      >
+        Cerrar Sesión
+      </button>
+    </div>
+  </header>
+</template>
+<style scoped>
+.header {
+  background: rgba(0, 243, 255, 0.1);
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  color: white;
+  z-index: 10;
+}
+.header:hover {
+  background: rgba(0, 243, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
+.title-header {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  background: linear-gradient(90deg, #00f3ff, #ff00ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px #00f3ff, 0 0 20px #ff00ff;
+  letter-spacing: 2px;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    text-shadow: 0 0 10px #00f3ff, 0 0 20px #ff00ff;
+  }
+  100% {
+    text-shadow: 0 0 20px #00f3ff, 0 0 30px #ff00ff;
+  }
+}
+@media(max-width:600px){
+.menu{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2;
+}
+}
+</style>
