@@ -1,18 +1,19 @@
 <script setup>
-import { RouterLink } from "vue-router";
+import { useRouter } from "vue-router";
+const router = useRouter();
 defineProps({
   to: {
     type: String,
-    required: true,
   },
 });
 </script>
 
 <template>
-    <RouterLink
-      :to="{ name: to }"
-      class="block md:inline-block bg-indigo-600 text-white p-1 uppercase font-extralight rounded-sm hover:bg-indigo-700 cursor-pointer transition-colors"
-    >
-      <slot></slot>
-    </RouterLink>
+  <button
+    class="bg-cyan-800 py-1  px-2 text-center capitalize rounded-md hover:bg-cyan-900 transition-colors cursor-pointer"
+    type="button"
+    @click="router.push({ name: to })"
+  >
+    <slot></slot>
+  </button>
 </template>

@@ -13,9 +13,7 @@ function handleLogin({ usuario, tipo }) {
 </script>
 
 <template>
-  <main class="">
     <LoginForm @loginSuccess="handleLogin" />
-  </main>
 </template>
 
 

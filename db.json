@@ -1,7 +1,87 @@
 {
-    "clientes":[
-       {
-        "nombre":"Joel"
-       }
-    ]
+  "clientes": [
+    {
+      "id": "66ab",
+      "nombre": "Joel",
+      "apellido": "Llacsahuache Copia",
+      "email": "joel.llacsahuache@gmail.com",
+      "telefono": "918829231"
+    },
+    {
+      "id": "7434",
+      "nombre": "Adan",
+      "apellido": "Torres Garcia",
+      "email": "adam@gmail.com",
+      "telefono": "918281232"
+    },
+    {
+      "id": "3459",
+      "nombre": "HOLA MI NOMBRE ES JOEL",
+      "apellido": "Llacsahuache Copia",
+      "email": "alexander@gmail.com",
+      "telefono": "918829231"
+    },
+    {
+      "id": "df05",
+      "nombre": "Aladino",
+      "apellido": "Araujo Cubas",
+      "email": "araujo@gmail.com",
+      "telefono": "910282323"
+    },
+    {
+      "id": "bfbb",
+      "nombre": "HOLA MI NOMBRE ES JOEL",
+      "apellido": "Llacsahuache Copia",
+      "email": "llacsahuachecopiajoel@gmail.com",
+      "telefono": "920391273"
+    } ,{
+      "id": "66ab",
+      "nombre": "Joel",
+      "apellido": "Llacsahuache Copia",
+      "email": "joel.llacsahuache@gmail.com",
+      "telefono": "918829231"
+    },
+    {
+      "id": "7434",
+      "nombre": "Adan",
+      "apellido": "Torres Garcia",
+      "email": "adam@gmail.com",
+      "telefono": "918281232"
+    },
+    {
+      "id": "3459",
+      "nombre": "HOLA MI NOMBRE ES JOEL",
+      "apellido": "Llacsahuache Copia",
+      "email": "alexander@gmail.com",
+      "telefono": "918829231"
+    },
+    {
+      "id": "df05",
+      "nombre": "Aladino",
+      "apellido": "Araujo Cubas",
+      "email": "araujo@gmail.com",
+      "telefono": "910282323"
+    },
+    {
+      "id": "bfbb",
+      "nombre": "HOLA MI NOMBRE ES JOEL",
+      "apellido": "Llacsahuache Copia",
+      "email": "llacsahuachecopiajoel@gmail.com",
+      "telefono": "920391273"
+    },
+    {
+      "id": "df05",
+      "nombre": "Aladino",
+      "apellido": "Araujo Cubas",
+      "email": "araujo@gmail.com",
+      "telefono": "910282323"
+    },
+    {
+      "id": "bfbb",
+      "nombre": "HOLA MI NOMBRE ES JOEL",
+      "apellido": "Llacsahuache Copia",
+      "email": "llacsahuachecopiajoel@gmail.com",
+      "telefono": "920391273"
+    }
+  ]
 }

@@ -1,8 +1,9 @@
-import { fr } from '@formkit/i18n'
+// formkit.config.ts
+import { defaultConfig } from '@formkit/vue'
+import { rootClasses } from './formkit.theme'
 
-const config = {
-  locales: { fr },
-  locale: 'fr',
-}
-
-export default config
+export default defaultConfig({
+  config: {
+    rootClasses,
+  },
+})
