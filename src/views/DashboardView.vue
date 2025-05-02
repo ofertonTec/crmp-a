@@ -7,7 +7,7 @@ const { user } = useUsuarioStore();
 
 const adminItems = [
   { text: "Registrar Persona", link: "/admin/persona" },
-  { text: "Editar Vehículo", link: "/admin/editar-vehiculo" },
+  { text: "Registrar Usuario", link: "/usuario" },
   { text: "Registrar Conductor", link: "/admin/registrar-conductor" },
   { text: "Editar Conductor", link: "/admin/editar-conductor" },
   { text: "Resumen Financiero", link: "/admin/resumen-financiero" },

@@ -1,87 +1,106 @@
 {
   "clientes": [
     {
-      "id": "66ab",
+      "id": "3502",
+      "Sede": "arequipa",
+      "unidadNegocio": "otro",
+      "documento": "01104130",
+      "fechaNacimiento": "2025-05-03",
+      "login": "jcopia",
+      "nombre": "Joel Alexander",
+      "apellidoMaterno": "Llacsahuache ",
+      "apellidoPaterno": "Copia",
+      "password": "123456",
+      "direccion": "Avenida defensores del morro mz d lte 39",
+      "departamento": "LIM",
+      "provincia": "LIM",
+      "distrito": "LIM",
+      "telefono": "910276761",
+      "Email": "joel.llacsahuache@gmail.com",
+      "email2": "joel.llacsahuache@gmail.com",
+      "file_2": [],
+      "sede": "arequipa",
+      "telefono2": "",
+      "telefono3": "",
+      "email": "andrew@formkit.com",
+      "foto": []
+    },
+    {
+      "id": "b574",
+      "Sede": "lima",
+      "unidadNegocio": "otro",
+      "documento": "77666543",
+      "fechaNacimiento": "2025-05-02",
+      "login": "jcopia",
       "nombre": "Joel",
-      "apellido": "Llacsahuache Copia",
-      "email": "joel.llacsahuache@gmail.com",
-      "telefono": "918829231"
-    },
-    {
-      "id": "7434",
-      "nombre": "Adan",
-      "apellido": "Torres Garcia",
-      "email": "adam@gmail.com",
-      "telefono": "918281232"
-    },
-    {
-      "id": "3459",
-      "nombre": "HOLA MI NOMBRE ES JOEL",
-      "apellido": "Llacsahuache Copia",
-      "email": "alexander@gmail.com",
-      "telefono": "918829231"
-    },
-    {
-      "id": "df05",
-      "nombre": "Aladino",
-      "apellido": "Araujo Cubas",
-      "email": "araujo@gmail.com",
-      "telefono": "910282323"
-    },
-    {
-      "id": "bfbb",
-      "nombre": "HOLA MI NOMBRE ES JOEL",
-      "apellido": "Llacsahuache Copia",
+      "apellidoMaterno": "Llacsahuache ",
+      "apellidoPaterno": "Copia",
+      "password": "343wewerew",
+      "direccion": "Jrion 8 de julio",
+      "departamento": "LIM",
+      "provincia": "LIM",
+      "distrito": "LIM",
+      "telefono": "910276761",
+      "Email": "joel.llacsahuache@gmail.com",
+      "email2": "joel.llacsahuache@gmail.com",
+      "file_4": [
+        {
+          "name": "Configuration.xml",
+          "file": {}
+        }
+      ],
+      "sede": "arequipa",
+      "telefono2": "912833437",
+      "telefono3": "",
       "email": "llacsahuachecopiajoel@gmail.com",
-      "telefono": "920391273"
-    } ,{
-      "id": "66ab",
+      "foto": []
+    },
+    {
+      "id": "83d9",
+      "Sede": "lima",
+      "unidadNegocio": "otro",
+      "documento": "75682832",
+      "fechaNacimiento": "1999-07-18",
+      "login": "ADITA",
+      "nombre": "Adita",
+      "apellidoMaterno": "Llacsahuache",
+      "apellidoPaterno": "Copia",
+      "password": "12234",
+      "direccion": "Avenida defensores del morro mz d lte 39",
+      "departamento": "LIM",
+      "provincia": "LIM",
+      "distrito": "LIM",
+      "telefono": "982141999",
+      "Email": "adita@gmail.com",
+      "email2": "adita@gmail.com",
+      "file_2": [],
+      "sede": "lima",
+      "telefono2": "",
+      "telefono3": "",
+      "email": "adita@gmail.com",
+      "foto": []
+    },
+    {
+      "id": "ae05",
+      "sede": "AREQPA",
+      "unidadNegocio": "otro",
+      "documento": "77277872",
+      "fechaNacimiento": "2025-05-02",
+      "login": "jcopia",
       "nombre": "Joel",
-      "apellido": "Llacsahuache Copia",
-      "email": "joel.llacsahuache@gmail.com",
-      "telefono": "918829231"
-    },
-    {
-      "id": "7434",
-      "nombre": "Adan",
-      "apellido": "Torres Garcia",
-      "email": "adam@gmail.com",
-      "telefono": "918281232"
-    },
-    {
-      "id": "3459",
-      "nombre": "HOLA MI NOMBRE ES JOEL",
-      "apellido": "Llacsahuache Copia",
-      "email": "alexander@gmail.com",
-      "telefono": "918829231"
-    },
-    {
-      "id": "df05",
-      "nombre": "Aladino",
-      "apellido": "Araujo Cubas",
-      "email": "araujo@gmail.com",
-      "telefono": "910282323"
-    },
-    {
-      "id": "bfbb",
-      "nombre": "HOLA MI NOMBRE ES JOEL",
-      "apellido": "Llacsahuache Copia",
-      "email": "llacsahuachecopiajoel@gmail.com",
-      "telefono": "920391273"
-    },
-    {
-      "id": "df05",
-      "nombre": "Aladino",
-      "apellido": "Araujo Cubas",
-      "email": "araujo@gmail.com",
-      "telefono": "910282323"
-    },
-    {
-      "id": "bfbb",
-      "nombre": "HOLA MI NOMBRE ES JOEL",
-      "apellido": "Llacsahuache Copia",
-      "email": "llacsahuachecopiajoel@gmail.com",
-      "telefono": "920391273"
+      "apellidoMaterno": "Llacsahuache ",
+      "apellidoPaterno": "Copia",
+      "password": "dsfdsfsdf",
+      "direccion": "Avenida defensores del morro mz d lte 39",
+      "departamento": "LIM",
+      "provincia": "LIM",
+      "distrito": "LIM",
+      "telefono": "920391273",
+      "telefono2": "912833437",
+      "telefono3": "",
+      "Email": "joel.llacsahuache@gmail.com",
+      "email2": "joel.llacsahuache@gmail.com",
+      "file_2": []
     }
   ]
 }

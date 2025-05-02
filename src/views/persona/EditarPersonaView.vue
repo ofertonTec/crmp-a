@@ -1,11 +1,14 @@
 <script setup>
 import { FormKit } from "@formkit/vue";
-import { reactive, onMounted, ref, watch } from "vue";
+import { onMounted, reactive } from "vue";
 import RouterLink from "@/components/UI/RouterLink.vue";
 import PersonaService from "@/services/PersonaService";
 
-import { useRouter } from "vue-router";
-const router = useRouter();
+import { useRouter, useRoute } from "vue-router";
+const route = useRoute();
+const router = useRouter(); //permite acceder a la propiedad params
+const { id } = route.params;
+console.log(id);
 
 const persona = reactive({
   sede: "",
@@ -28,33 +31,25 @@ const persona = reactive({
   email2: "",
   foto: "",
 });
-const personas=ref([])
-
-/*const validarRegistroPersona = (data) => {
-  PersonaService.agregarPersona(data)
-    .then((respuesta) => {
-      router.push("/admin/persona");
-    })
-    .catch((error) => console.log(error));
-};*/
-const validarRegistroPersona=(data)=>{
-  personas.value.push(persona)
-  router.push({name:'ListaPersonas'})
-}
-
 const guardarLocalStorage=()=>{
-  localStorage.setItem('personas',JSON.stringify(persona))
+  
 }
-watch(personas,()=>{
-  guardarLocalStorage()
-},{
-  deep:true
-})
+onMounted(() => {
+  PersonaService.obtnerPersona(id).then(({ data }) => {
+    console.log(typeof id);
+    Object.assign(persona, data);
+  });
+});
+const actualizarPersona = (data) => {
+  PersonaService.actualizarPersona(id, data).then(() => {
+    router.push({ name: "ListaPersonas" });
+  });
+};
 </script>
 
 <template>
   <div class="px-4 mb-4">
-    <RouterLink to="ListaPersonas"> Atrás </RouterLink>
+    <RouterLink to="ListaPersonas" tipo="button"> Atrás </RouterLink>
   </div>
   <div class="flex justify-center m-4 p-4">
     <div
@@ -68,8 +63,8 @@ watch(personas,()=>{
       <FormKit
         type="form"
         :actions="false"
+        @submit="actualizarPersona"
         :value="persona"
-        @submit="validarRegistroPersona"
         incomplete-message="Revisar los campos solicitados y completarlos"
       >
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -77,11 +72,10 @@ watch(personas,()=>{
             type="select"
             name="sede"
             label="Sede"
-            :options="{ '': 'Seleccione', LIM: 'Lima', AREQPA: 'Arequipa' }"
+            :options="{ '': 'Seleccione', lima: 'Lima', arequipa: 'Arequipa' }"
             validation="required"
-            :validation-messages="{ required: 'Ingrese la sede'
-             }"
-             v-model="persona.sede"
+            :validation-messages="{ required: 'Ingrese la sede' }"
+            v-model="persona.sede"
           />
           <FormKit
             type="select"
@@ -246,7 +240,7 @@ watch(personas,()=>{
           <div class="flex items-center justify-center">
             <FormKit
               type="email"
-              name="Email"
+              name="email"
               label="Email"
               placeholder="Ingrese Email"
               validation="required|email"
@@ -283,20 +277,14 @@ watch(personas,()=>{
             type="file"
             label="Foto"
             name="foto"
-            accept=".pdf,.doc,.docx,.xml,.md,.csv"
+            accept=".jpg,.png,.docx,.xml,.md,.csv"
             multiple="false"
             v-model="persona.foto"
           />
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-7 gap-4 ">
-          <button
-            type="submit"
-            class="text-green-400 text-xl font-semibold border-3 border-green-400 p-2 rounded-2xl shadow-2xl hover:shadow-green-700 hover:text-black cursor-pointer hover:bg-green-400 transition-colors"
-          >
-            Registrar Persona
-          </button>
-          <RouterLink to="ListaPersonas">Cerrar</RouterLink>
-
+        <div class="grid grid-cols-1 md:grid-cols-7 gap-4">
+          <RouterLink tipo="submit">Registrar Persona</RouterLink>
+          <RouterLink to='ListaPersonas' tipo="button">Cerrar</RouterLink>
         </div>
       </FormKit>
     </div>

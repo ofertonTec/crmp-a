@@ -12,14 +12,19 @@ const currentPage = ref(1); // Página actual
 const itemsPerPage = 5; // Número de elementos por página
 
 onMounted(() => {
-  listarPersonas()
+  //Obtner del localStorage
+  const personasLocalStorage=localStorage.getItem('personas')
+  //console.log(personasLocalStorage)
+  if(personas){
+    personas.value=JSON.parse(personasLocalStorage)
+    
+  }
+  //listarPersonas()
 });
 
 const listarPersonas = () => {
   PersonaService.obtnerPersonas()
     .then(({ data }) => {
-      // Asegúrate de que la respuesta sea un array, si no lo es, se inicializa como un array vacío.
-
       personas.value = data;
     })
     .catch((error) => {
@@ -31,7 +36,7 @@ const existenPersonas = computed(() => {
   return personas.value.length > 0;
 });
 
-watch(personas,() => {listarPersonas();},{deep: true,});
+//watch(personas,() => {listarPersonas();},{deep: true,});
 
 // Computada para obtener las personas paginadas
 const paginatedPersonas = computed(() => {
@@ -55,27 +60,37 @@ const cambiarPagina = (pagina) => {
 <template>
   <Header />
   <div v-if="route.path === '/admin/persona'" class="container mx-auto px-4">
-    <RouterLink to="NuevaPersona"> Nueva Persona </RouterLink>
+    <div class="flex justify-between">
+      <RouterLink to="dasboard">Menu Principal</RouterLink>
+      <RouterLink to="NuevaPersona"> Nueva Persona </RouterLink>
+    </div>
+    
 
     <div
       v-if="existenPersonas"
-      class="flow-root mx-auto mt-10 p-5 bg-white shadow"
+      class="flow-root mx-auto mt-10 p-5 bg-white shadow-2xl shadow-cyan-100"
     >
       <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <table class="min-w-full divide-y divide-gray-300">
-            <thead>
+            <thead class="text-center text-gray-600 uppercase">
               <tr>
-                <th class="p-2 text-left text-sm font-extrabold text-gray-600">
+                <th class="p-2">
+                 Documento
+                </th>
+                <th class="p-2">
                   Nombres y apellidos
                 </th>
-                <th class="p-2 text-left text-sm font-extrabold text-gray-600">
-                  Email
+                <th class="p-2">
+                  Distrito
                 </th>
-                <th class="p-2 text-left text-sm font-extrabold text-gray-600">
-                  Estado
+                <th class="p-2">
+                  Sede
                 </th>
-                <th class="p-2 text-left text-sm font-extrabold text-gray-600">
+                <th class="p-2">
+                  Telefono
+                </th>
+                <th class="p-2">
                   Acciones
                 </th>
               </tr>
@@ -128,7 +143,7 @@ const cambiarPagina = (pagina) => {
       </div>
     </div>
 
-    <p v-else class="text-white">No hay clientes</p>
+    <p v-else class="text-white text-center mt-20">No hay clientes</p>
   </div>
 
   <!-- Aquí va el contenido dinámico de las subrutas -->

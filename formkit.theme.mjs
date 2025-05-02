@@ -796,10 +796,11 @@ const classes = {
     "": true
   },
   "form__message": {
-    "text-red-600": true,
+    "text-red-300": true,
     "mb-1.5": true,
-    "text-xs": true,
-    "dark:text-red-400": true,
+    "text-md": true,
+    "text-center":true,
+    "dark:text-red-300": true,
     "group-[]/summary:text-sm": true
   },
   "form__messageLink": {
@@ -3289,7 +3290,7 @@ const classes = {
 const globals = {
   "outer": {
     "group": true,
-    "max-w-[20em]": true,
+    "w-full": true,
     "min-w-0": true,
     "grow": true,
     "mb-4": true,
@@ -3299,10 +3300,11 @@ const globals = {
   },
   "label": {
     "block": true,
-    "text-neutral-700": true,
-    "text-sm": true,
-    "font-bold": true,
-    "mb-1": true,
+    "text-neutral-700": false,
+    "text-xl": true,
+    "text-gray-400":true,
+    "font-semibold": true,
+    "mb-2": true,
     "dark:text-neutral-300": true
   },
   "legend": {
@@ -3370,9 +3372,9 @@ const globals = {
     "dark:text-neutral-400": true
   },
   "message": {
-    "text-red-600": true,
+    "text-red-300": true,
     "mb-1.5": true,
-    "text-xs": true,
+    "text-sm": true,
     "dark:text-red-400": true
   },
   "overlay": {
