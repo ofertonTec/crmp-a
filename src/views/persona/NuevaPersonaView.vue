@@ -5,6 +5,11 @@ import RouterLink from "@/components/UI/RouterLink.vue";
 import PersonaService from "@/services/PersonaService";
 
 import { useRouter } from "vue-router";
+import { uid } from "uid";
+import { usePersonaStorage } from "@/store/persona";
+import Persona from "@/components/persona/Persona.vue";
+
+const usePersona = usePersonaStorage();
 const router = useRouter();
 
 const persona = reactive({
@@ -28,7 +33,6 @@ const persona = reactive({
   email2: "",
   foto: "",
 });
-const personas=ref([])
 
 /*const validarRegistroPersona = (data) => {
   PersonaService.agregarPersona(data)
@@ -37,24 +41,40 @@ const personas=ref([])
     })
     .catch((error) => console.log(error));
 };*/
-const validarRegistroPersona=(data)=>{
-  personas.value.push(persona)
-  router.push({name:'ListaPersonas'})
-}
-
-const guardarLocalStorage=()=>{
-  localStorage.setItem('personas',JSON.stringify(persona))
-}
-watch(personas,()=>{
-  guardarLocalStorage()
-},{
-  deep:true
-})
+const validarRegistroPersona = () => {
+  console.log("INICIO:validarRegistroPersona")
+  persona.id = uid();
+  usePersona.agregarPersona({ ...persona });
+  console.log("FIN:usePersona.agregarPersona({ ...persona })")
+  Object.assign(persona, {
+    id: null,
+    sede: "",
+    unidadNegocio: "",
+    documento: "",
+    fechaNacimiento: "",
+    login: "",
+    nombre: "",
+    apellidoMaterno: "",
+    apellidoPaterno: "",
+    password: "",
+    direccion: "",
+    departamento: "",
+    provincia: "",
+    distrito: "",
+    telefono: "",
+    telefono2: "",
+    telefono3: "",
+    email: "",
+    email2: "",
+    foto: "",
+  });
+  router.push({ name: "ListaPersonas" });
+};
 </script>
 
 <template>
   <div class="px-4 mb-4">
-    <RouterLink to="ListaPersonas"> Atrás </RouterLink>
+    <RouterLink to="ListaPersonas"> <i class="fa-solid fa-backward-step"></i> Atrás </RouterLink>
   </div>
   <div class="flex justify-center m-4 p-4">
     <div
@@ -77,11 +97,10 @@ watch(personas,()=>{
             type="select"
             name="sede"
             label="Sede"
-            :options="{ '': 'Seleccione', LIM: 'Lima', AREQPA: 'Arequipa' }"
+            :options="{ '': 'Seleccione', lima: 'Lima', arequipa: 'Arequipa' }"
             validation="required"
-            :validation-messages="{ required: 'Ingrese la sede'
-             }"
-             v-model="persona.sede"
+            :validation-messages="{ required: 'Ingrese la sede' }"
+            v-model="persona.sede"
           />
           <FormKit
             type="select"
@@ -125,10 +144,13 @@ watch(personas,()=>{
               placeholder="Ingrese login"
               validation="required"
               v-model="persona.login"
-            />
-            <button class="hover:cursor-pointer">
-              <i class="fas fa-search text-green-200 text-3xl p-1"></i>
-            </button>
+            >
+              <template #suffixIcon>
+                <button class="hover:cursor-pointer">
+                  <i class="fas fa-search text-green-600 text-lg"></i>
+                </button>
+              </template>
+            </FormKit>
           </div>
           <FormKit
             type="text"
@@ -166,10 +188,12 @@ watch(personas,()=>{
               validation="required"
               :validation-messages="{ required: 'Ingrese el password' }"
               v-model="persona.password"
-            />
-            <i
-              class="fas fa-eye text-green-200 text-3xl p-1 hover:cursor-pointer"
-            ></i>
+              ><template #suffixIcon>
+                <span class="text-green-500 text-lg hover:cursor-pointer">
+                  <i class="fas fa-eye"></i>
+                </span>
+              </template>
+            </FormKit>
           </div>
         </div>
         <div class="grid grid-cols-1">
@@ -246,7 +270,7 @@ watch(personas,()=>{
           <div class="flex items-center justify-center">
             <FormKit
               type="email"
-              name="Email"
+              name="email"
               label="Email"
               placeholder="Ingrese Email"
               validation="required|email"
@@ -255,10 +279,12 @@ watch(personas,()=>{
                 email: 'Ingrese un email válido',
               }"
               v-model="persona.email"
-            />
-            <i
-              class="fas fa-envelope text-green-200 text-3xl p-1 hover:cursor-pointer"
-            ></i>
+              ><template #suffixIcon>
+                <span class="text-green-500 text-lg hover:cursor-pointer">
+                  <i class="fas fa-envelope"></i>
+                </span>
+              </template>
+            </FormKit>
           </div>
           <div class="flex items-center justify-center">
             <FormKit
@@ -272,10 +298,13 @@ watch(personas,()=>{
                 email: 'Ingrese un email válido',
               }"
               v-model="persona.email2"
-            />
-            <i
-              class="fas fa-envelope text-green-200 text-3xl p-1 hover:cursor-pointer"
-            ></i>
+            >
+              <template #suffixIcon>
+                <span class="text-green-500 text-lg hover:cursor-pointer">
+                  <i class="fas fa-envelope"></i>
+                </span>
+              </template>
+            </FormKit>
           </div>
         </div>
         <div class="grid grid-cols-1">
@@ -283,20 +312,24 @@ watch(personas,()=>{
             type="file"
             label="Foto"
             name="foto"
-            accept=".pdf,.doc,.docx,.xml,.md,.csv"
-            multiple="false"
+            accept=".jpg,.png"
             v-model="persona.foto"
-          />
+          >
+            <template #prefixIcon>
+              <span class="text-gray-500 text-3xl pr-2">
+                <i class="fas fa-camera"></i>
+              </span>
+            </template>
+          </FormKit>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-7 gap-4 ">
+        <div class="grid grid-cols-1 md:grid-cols-7 gap-4">
           <button
             type="submit"
-            class="text-green-400 text-xl font-semibold border-3 border-green-400 p-2 rounded-2xl shadow-2xl hover:shadow-green-700 hover:text-black cursor-pointer hover:bg-green-400 transition-colors"
+            class="text-green-400 text-sm font-semibold border-2 border-green-400 p-2 rounded-2xl shadow-2xl hover:shadow-green-700 hover:text-black cursor-pointer hover:bg-green-400 transition-colors"
           >
-            Registrar Persona
+          <i class="fa-solid fa-user-check"></i> Registrar Persona
           </button>
-          <RouterLink to="ListaPersonas">Cerrar</RouterLink>
-
+          <RouterLink to="ListaPersonas"><i class="fa-solid fa-xmark"></i>Cerrar</RouterLink>
         </div>
       </FormKit>
     </div>
@@ -315,4 +348,5 @@ watch(personas,()=>{
   color: #000;
   box-shadow: 0 0 12px var(--accent);
 }
+
 </style>

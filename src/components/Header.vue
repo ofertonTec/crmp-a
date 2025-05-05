@@ -12,7 +12,7 @@ function logout() {
 </script>
 <template>
   <header class="header">
-    <div class=" menu flex  flex-wrap justify-between items-center">
+    <div class=" menu flex  flex-wrap justify-between items-center gap-5">
      
         <img
           class="w-30"
@@ -24,9 +24,9 @@ function logout() {
 
       <button
         @click="logout"
-        class="btn-cerrar-sesion bg-pink-500 hover:bg-pink-600 px-4 py-2 rounded font-bold"
+        class=" bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded font-bold"
       >
-        Cerrar Sesión
+      <i class="fa-solid fa-xmark"></i> Cerrar Sesión
       </button>
     </div>
   </header>

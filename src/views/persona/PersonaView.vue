@@ -5,24 +5,18 @@ import Persona from "@/components/persona/Persona.vue";
 import { ref, onMounted, computed, watch } from "vue";
 import PersonaService from "@/services/PersonaService";
 import { useRoute } from "vue-router";
-
+import { usePersonaStorage } from "@/store/persona";
+const usePersona=usePersonaStorage()
 const route = useRoute();
-const personas = ref([]);
+//const personas = ref([]);
 const currentPage = ref(1); // Página actual
 const itemsPerPage = 5; // Número de elementos por página
 
 onMounted(() => {
-  //Obtner del localStorage
-  const personasLocalStorage=localStorage.getItem('personas')
-  //console.log(personasLocalStorage)
-  if(personas){
-    personas.value=JSON.parse(personasLocalStorage)
-    
-  }
+  
   //listarPersonas()
 });
-
-const listarPersonas = () => {
+/*const listarPersonas = () => {
   PersonaService.obtnerPersonas()
     .then(({ data }) => {
       personas.value = data;
@@ -30,23 +24,22 @@ const listarPersonas = () => {
     .catch((error) => {
       console.log("Hubo un error al obtener las personas", error);
     });
-};
+};*/
 
 const existenPersonas = computed(() => {
-  return personas.value.length > 0;
+  return usePersona.personas.length > 0;
 });
-
 //watch(personas,() => {listarPersonas();},{deep: true,});
 
 // Computada para obtener las personas paginadas
 const paginatedPersonas = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
-  return personas.value.slice(start, start + itemsPerPage);
+  return usePersona.personas.slice(start, start + itemsPerPage);
 });
 
 // Computada para obtener el total de páginas
 const totalPages = computed(() => {
-  return Math.ceil(personas.value.length / itemsPerPage);
+  return Math.ceil(usePersona.personas.length / itemsPerPage);
 });
 
 // Función para cambiar de página
@@ -61,8 +54,8 @@ const cambiarPagina = (pagina) => {
   <Header />
   <div v-if="route.path === '/admin/persona'" class="container mx-auto px-4">
     <div class="flex justify-between">
-      <RouterLink to="dasboard">Menu Principal</RouterLink>
-      <RouterLink to="NuevaPersona"> Nueva Persona </RouterLink>
+      <RouterLink to="dasboard"><i class="fa-solid fa-bars"></i> Menu Principal</RouterLink>
+      <RouterLink to="NuevaPersona"><i class="fa-solid fa-user-plus"></i> Nueva Persona </RouterLink>
     </div>
     
 
@@ -100,6 +93,7 @@ const cambiarPagina = (pagina) => {
                 v-for="persona in paginatedPersonas"
                 :key="persona.id"
                 :persona="persona"
+                :id="persona.id"
               />
             </tbody>
           </table>
@@ -111,29 +105,29 @@ const cambiarPagina = (pagina) => {
                 Anterior
               </button>
               <button @click="cambiarPagina(currentPage + 1)" :disabled="currentPage >= totalPages">
-                Siguiente
+                Siguiente 
               </button>
             </div>
             <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
               <div>
                 <p class="text-sm text-gray-700">
                   Mostrando
-                  <span class="font-medium">{{ (currentPage - 1) * itemsPerPage + 1 }}</span> a
-                  <span class="font-medium">{{ Math.min(currentPage * itemsPerPage, personas.value) }}</span>
+                  <span class="font-medium">{{ (currentPage - 1) * itemsPerPage + 1 }}</span> -
+                  <span class="font-medium">{{ Math.min(currentPage * itemsPerPage, usePersona.personas.length) }}</span>
                   de
-                  <span class="font-medium">{{ personas.value?.length}}</span> resultados
+                  <span class="font-medium">{{ usePersona.personas.length}}</span> Registros
                 </p>
               </div>
               <div>
-                <nav class="flex justify-between shadow-sm" aria-label="Pagination">
-                  <button class="p-2 bg-cyan-900" @click="cambiarPagina(currentPage - 1)" :disabled="currentPage <= 1">
-                    Anterior
+                <nav class="flex justify-between shadow-sm border " aria-label="Pagination">
+                  <button class="p-2 bg-cyan-900 hover:cursor-pointer" @click="cambiarPagina(currentPage - 1)" :disabled="currentPage <= 1">
+                    <i class="fa-solid fa-arrow-left"></i> 
                   </button>
-                  <button class="text-black" v-for="page in totalPages" :key="page" :class="{'bg-indigo-50': page === currentPage}" @click="cambiarPagina(page)">
+                  <button class="text-black p-2 hover:cursor-pointer" v-for="page in totalPages" :key="page" :class="{'bg-green-400': page === currentPage}" @click="cambiarPagina(page)">
                     {{ page }}
                   </button>
-                  <button class="p-2 bg-cyan-900" @click="cambiarPagina(currentPage+ 1)" :disabled="currentPage >= totalPages">
-                    Siguiente
+                  <button class="p-2 bg-cyan-900 hover:cursor-pointer" @click="cambiarPagina(currentPage+ 1)" :disabled="currentPage >= totalPages">
+                     <i class="fa-solid fa-arrow-right"></i>
                   </button>
                 </nav>
               </div>

@@ -1,12 +1,18 @@
 <script setup>
 import { useRouter } from 'vue-router';
 const router=useRouter()
+import { usePersonaStorage } from '@/store/persona';
+const usePersona= usePersonaStorage()
 const props=defineProps({
     persona:{
         type:Object,
         required:true
     }
 })
+const eliminarPersona=()=>{
+    usePersona.eliminarPersona(props.persona.id)
+}
+console.log(props.persona)
 </script>
 <template>
     <tr class="text-center">
@@ -28,8 +34,10 @@ const props=defineProps({
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
             <p class="text-gray-900 font-bold">{{ persona.telefono }}</p>
         </td>
-        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 ">
-         <RouterLink class="bg-green-200 px-3 py-2 rounded-md text-black hover:bg-green-700 hover:text-white" :to="{name:'EditarPersona',params:{id:persona.id}}">Editar</RouterLink>
+        <td class="grid grid-cols-1 md:grid-cols-2 gap-2 m-2 text-center">
+         <RouterLink class="py-1 rounded-md  bg-green-400 hover:bg-white border-2 hover:border-green-400 hover:cursor-pointer" :to="{name:'EditarPersona',params:{id:persona.id}}"><i class="fa-solid fa-pencil text-black"></i> </RouterLink>
+         
+         <button class="bg-green-400 py-1 rounded-md  hover:cursor-pointer hover:bg-white border-2 hover:border-green-400 " @click="eliminarPersona"><i class="fa-solid fa-trash-can text-black"></i></button>
         </td>
     </tr>
 </template>

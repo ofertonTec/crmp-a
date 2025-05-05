@@ -5,12 +5,14 @@ import RouterLink from "@/components/UI/RouterLink.vue";
 import PersonaService from "@/services/PersonaService";
 
 import { useRouter, useRoute } from "vue-router";
+import { usePersonaStorage } from "@/store/persona";
 const route = useRoute();
 const router = useRouter(); //permite acceder a la propiedad params
 const { id } = route.params;
-console.log(id);
+const usePersona = usePersonaStorage();
 
 const persona = reactive({
+  id: "",
   sede: "",
   unidadNegocio: "",
   documento: "",
@@ -31,25 +33,34 @@ const persona = reactive({
   email2: "",
   foto: "",
 });
-const guardarLocalStorage=()=>{
-  
-}
 onMounted(() => {
-  PersonaService.obtnerPersona(id).then(({ data }) => {
+  const personaEditar = usePersona.personas.filter(
+    (persona) => persona.id == id
+  )[0];
+  personaEditar.id = id;
+  console.log(personaEditar);
+  Object.assign(persona, personaEditar);
+  /*PersonaService.obtnerPersona(id).then(({ data }) => {
     console.log(typeof id);
     Object.assign(persona, data);
-  });
+  });*/
 });
 const actualizarPersona = (data) => {
-  PersonaService.actualizarPersona(id, data).then(() => {
+  data.id = id;
+  console.log(data);
+  usePersona.editarPersona(id, data);
+  router.push({ name: "ListaPersonas" });
+
+  //router.push({ name: "ListaPersonas" });
+  /*PersonaService.actualizarPersona(id, data).then(() => {
     router.push({ name: "ListaPersonas" });
-  });
+  });*/
 };
 </script>
 
 <template>
   <div class="px-4 mb-4">
-    <RouterLink to="ListaPersonas" tipo="button"> Atrás </RouterLink>
+    <RouterLink to="ListaPersonas" tipo="button">  <i class="fa-solid fa-backward-step"> </i>Atrás </RouterLink>
   </div>
   <div class="flex justify-center m-4 p-4">
     <div
@@ -64,7 +75,6 @@ const actualizarPersona = (data) => {
         type="form"
         :actions="false"
         @submit="actualizarPersona"
-        :value="persona"
         incomplete-message="Revisar los campos solicitados y completarlos"
       >
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -119,10 +129,13 @@ const actualizarPersona = (data) => {
               placeholder="Ingrese login"
               validation="required"
               v-model="persona.login"
-            />
-            <button class="hover:cursor-pointer">
-              <i class="fas fa-search text-green-200 text-3xl p-1"></i>
-            </button>
+            >
+              <template #suffixIcon>
+                <button class="hover:cursor-pointer">
+                  <i class="fas fa-search text-green-600 text-lg"></i>
+                </button>
+              </template>
+            </FormKit>
           </div>
           <FormKit
             type="text"
@@ -160,10 +173,13 @@ const actualizarPersona = (data) => {
               validation="required"
               :validation-messages="{ required: 'Ingrese el password' }"
               v-model="persona.password"
-            />
-            <i
-              class="fas fa-eye text-green-200 text-3xl p-1 hover:cursor-pointer"
-            ></i>
+            >
+              <template #suffixIcon>
+                <span class="text-green-500 text-lg hover:cursor-pointer">
+                  <i class="fas fa-eye"></i>
+                </span>
+              </template>
+            </FormKit>
           </div>
         </div>
         <div class="grid grid-cols-1">
@@ -249,10 +265,13 @@ const actualizarPersona = (data) => {
                 email: 'Ingrese un email válido',
               }"
               v-model="persona.email"
-            />
-            <i
-              class="fas fa-envelope text-green-200 text-3xl p-1 hover:cursor-pointer"
-            ></i>
+            >
+              <template #suffixIcon>
+                <span class="text-green-500 text-lg hover:cursor-pointer">
+                  <i class="fas fa-envelope"></i>
+                </span>
+              </template>
+            </FormKit>
           </div>
           <div class="flex items-center justify-center">
             <FormKit
@@ -266,10 +285,13 @@ const actualizarPersona = (data) => {
                 email: 'Ingrese un email válido',
               }"
               v-model="persona.email2"
-            />
-            <i
-              class="fas fa-envelope text-green-200 text-3xl p-1 hover:cursor-pointer"
-            ></i>
+            >
+              <template #suffixIcon>
+                <span class="text-green-500 text-lg hover:cursor-pointer">
+                  <i class="fas fa-envelope"></i>
+                </span>
+              </template>
+            </FormKit>
           </div>
         </div>
         <div class="grid grid-cols-1">
@@ -277,14 +299,19 @@ const actualizarPersona = (data) => {
             type="file"
             label="Foto"
             name="foto"
-            accept=".jpg,.png,.docx,.xml,.md,.csv"
-            multiple="false"
+            accept=".jpg,.png"
             v-model="persona.foto"
-          />
+          >
+            <template #prefixIcon>
+              <span class="text-gray-500 text-3xl pr-2">
+                <i class="fas fa-camera"></i>
+              </span>
+            </template>
+          </FormKit>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-7 gap-4">
-          <RouterLink tipo="submit">Registrar Persona</RouterLink>
-          <RouterLink to='ListaPersonas' tipo="button">Cerrar</RouterLink>
+          <RouterLink tipo="submit"> <i class="fa-solid fa-user-check"></i> Registrar Persona</RouterLink>
+          <RouterLink to="ListaPersonas" tipo="button"><i class="fa-solid fa-xmark"></i> Cerrar</RouterLink>
         </div>
       </FormKit>
     </div>

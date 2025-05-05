@@ -8,7 +8,7 @@ const router = useRouter();
 
 function handleLogin({ usuario, tipo }) {
   auth.login(usuario, tipo);
-  router.push("/dashboard");
+  router.push({name:'dasboard'});
 }
 </script>
 

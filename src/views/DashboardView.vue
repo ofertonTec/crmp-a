@@ -6,7 +6,7 @@ import { RouterView } from "vue-router";
 const { user } = useUsuarioStore();
 
 const adminItems = [
-  { text: "Registrar Persona", link: "/admin/persona" },
+  { text: "Gestionar Persona", link: "/admin/persona" },
   { text: "Registrar Usuario", link: "/usuario" },
   { text: "Registrar Conductor", link: "/admin/registrar-conductor" },
   { text: "Editar Conductor", link: "/admin/editar-conductor" },
